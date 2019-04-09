@@ -26,10 +26,10 @@ class LongStayersReport:
 
         # Create length of stay columns using the np.timedelta64 method
         self.entries["LOS Years"] = (
-            self.entries_copy["Entry Exit Exit Date"] - self.entries_copy["Entry Entry Entry Date"]
+            self.entries_copy["Entry Exit Exit Date"] - self.entries_copy["Entry Exit Entry Date"]
         )/np.timedelta64(1, "Y")
         self.entries["LOS Days"] = (
-            self.entries_copy["Entry Exit Exit Date"] - self.entries_copy["Entry Entry Entry Date"]
+            self.entries_copy["Entry Exit Exit Date"] - self.entries_copy["Entry Exit Entry Date"]
         )/np.timedelta64(1, "D")
 
         # Use the pandas.groupby method to find the total length of stay for
@@ -49,9 +49,9 @@ class LongStayersReport:
         current_stayers = self.entries[self.entries["Entry Exit Exit Date"].isna()]
 
         # Merge the current stayers and los_data dataframes then return the
-        # using an inner merge.
+        # using an inner merge.s
         output = current_stayers[
-            ["Client Uid", "Entry Exit Proviider Id", "Entry Exit Entry Date"]
+            ["Client Uid", "Entry Exit Provider Id", "Entry Exit Entry Date"]
         ].merge(
             los_data.reset_index(),
             on="Client Uid",
