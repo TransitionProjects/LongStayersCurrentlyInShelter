@@ -25,10 +25,10 @@ class LongStayersReport:
         self.entries_copy["Entry Exit Exit Date"].fillna(self.today, inplace=True)
 
         # Create length of stay columns using the np.timedelta64 method
-        self.entries["LOS Years"] = (
+        self.entries_copy["LOS Years"] = (
             self.entries_copy["Entry Exit Exit Date"] - self.entries_copy["Entry Exit Entry Date"]
         )/np.timedelta64(1, "Y")
-        self.entries["LOS Days"] = (
+        self.entries_copy["LOS Days"] = (
             self.entries_copy["Entry Exit Exit Date"] - self.entries_copy["Entry Exit Entry Date"]
         )/np.timedelta64(1, "D")
 
@@ -51,7 +51,13 @@ class LongStayersReport:
         # Merge the current stayers and los_data dataframes then return the
         # using an inner merge.s
         output = current_stayers[
-            ["Client Uid", "Entry Exit Provider Id", "Entry Exit Entry Date"]
+            [
+                "Client Uid",
+                "Client First Name",
+                "Client Last Name",
+                "Entry Exit Provider Id",
+                "Entry Exit Entry Date"
+            ]
         ].merge(
             los_data.reset_index(),
             on="Client Uid",
