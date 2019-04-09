@@ -67,7 +67,7 @@ class LongStayersReport:
             asksaveasfilename(
                     title="Save the Current Long Stayers report",
                     defaultextension=".xlsx",
-                    initialfile="Current Long Stayers.xlsx",
+                    initialfile="Current Long Stayers(Processed).xlsx",
                     initialdir="//tproserver/Report/Monthly Reports/"
             ),
             engine="xlsxwriter"
