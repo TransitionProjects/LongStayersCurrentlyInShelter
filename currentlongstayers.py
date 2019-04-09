@@ -62,7 +62,7 @@ class LongStayersReport:
             los_data.reset_index(),
             on="Client Uid",
             how="inner"
-        ).sort_values(by="LOS Years", ascending=False)
+        ).sort_values(by=["Entry Exit Provider Id", "LOS Years"], ascending=False)
 
         return output
 
