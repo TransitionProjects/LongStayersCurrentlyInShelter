@@ -42,7 +42,7 @@ class LongStayersReport:
         return grouped[grouped["LOS Days"] > 364]
 
     def show_current_location(self):
-        los_data = self.create_los_coluns()
+        los_data = self.create_los_columns()
 
         # Slice the self.entries dataframe so that it only shows the current
         # participants who are currently entered into a shelter
