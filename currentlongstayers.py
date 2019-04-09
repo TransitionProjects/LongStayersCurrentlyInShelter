@@ -7,7 +7,7 @@ import numpy as np
 
 from datetime import datetime
 from tkinter.filedialog import askopenfilename
-from tkitner.filedialog import asksaveasfilename
+from tkinter.filedialog import asksaveasfilename
 
 class LongStayersReport:
     def __init__(self):
@@ -74,3 +74,6 @@ class LongStayersReport:
         )
         final_data.to_excel(writer, sheet_name="Current Long Stayers", index=False)
         writer.save()
+
+if __name__ == "__main__":
+    LongStayersReport()
