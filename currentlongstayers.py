@@ -16,8 +16,8 @@ class LongStayersReport:
             initialdir="//tproserver/Reports/Monthly Reports/"
         )
         self.entries = pd.read_excel(file)
-        self.entries_copy = entries.copy()
-        self.today = datetime.datetime.today()
+        self.entries_copy = self.entries.copy()
+        self.today = datetime.today()
         self.save_output()
 
     def create_los_columns(self):
