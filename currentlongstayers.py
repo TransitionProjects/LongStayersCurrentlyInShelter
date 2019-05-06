@@ -1,5 +1,5 @@
 __author__ = "David Marienburg"
-__version__ = "1.0"
+__version__ = "1.1"
 __LastUpdate__ = "4/9/2019"
 
 import pandas as pd
@@ -17,6 +17,7 @@ class LongStayersReport:
         )
         self.entries = pd.read_excel(file)
         self.entries_copy = self.entries.copy()
+        self.case_workers = pd.read_excel(askopenfilename(title="Open Export Report - Case Worker.xlsx"))
         self.today = datetime.today()
         self.save_output()
 
@@ -66,8 +67,34 @@ class LongStayersReport:
 
         return output
 
+    def get_newest_cm(self):
+        # slice the self.case_workers data frame so that it only shows the
+        # newest row per client
+        newest_cm = self.case_workers.sort_values(
+            by=[
+                "Client Unique Id",
+                "Case Worker Date Started"
+            ],
+            ascending=False
+        ).drop_duplicates(
+            subset="Client Uid",
+            keep="first"
+        )
+
+        return newest_cm[["Client Uid", "Case Worker Name"]]
+
+    def merge_cm_name(self):
+        location = self.show_current_location()
+        cm = self.get_newest_cm()
+
+        return location.merge(
+            cm,
+            on="Client Uid",
+            how="left"
+        )
+
     def save_output(self):
-        final_data = self.show_current_location()
+        final_data = self.merge_cm_name()
 
         writer = pd.ExcelWriter(
             asksaveasfilename(
